@@ -28,7 +28,9 @@ public class ParentService {
         return parent;
     }
 
-    public Parent createParent(Parent parent) {
-        return null;
+    public Parent createParent(Parent parent)
+    {
+        Parent savedParent = repository.save(parent);
+        return savedParent;
     }
 }

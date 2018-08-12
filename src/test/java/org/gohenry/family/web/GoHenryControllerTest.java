@@ -18,8 +18,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.anyObject;
+import static org.mockito.Mockito.when;
 
 @WebMvcTest(GoHenryController.class)
 @RunWith(SpringRunner.class)
@@ -54,7 +56,7 @@ public class GoHenryControllerTest {
     }
 
     @Test
-    public void createParent_ShouldReturnParent() throws Exception{
+    public void createParent_ShouldReturnParent2() throws Exception{
 
         Parent parent = new Parent();
         parent.setName("go");
@@ -75,6 +77,22 @@ public class GoHenryControllerTest {
     }
 
     @Test
+    public void createParent_ShouldReturnParent() throws Exception{
+        Parent parent = new Parent("go","createParentControllerTest", 32);
+        when(parentService.createParent(anyObject())).thenReturn(parent);
+        mockMvc.perform(MockMvcRequestBuilders.post("/parents")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "      \"name\": \"go\",\n" +
+                        "      \"surname\": \"IntegrationTestCreate\",\n" +
+                        "      \"age\" : 32\n" +
+                        "}"))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("surname").value("createParentControllerTest"));
+
+    }
+
+    @Test
     public void createParent_ShouldReturn500Error() throws Exception{
 
         Parent parent = new Parent();
@@ -86,6 +104,7 @@ public class GoHenryControllerTest {
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
         String requestJson=ow.writeValueAsString(parent );
+
         given(parentService.createParent(anyObject())).willReturn(null);
         mockMvc.perform(MockMvcRequestBuilders.post("/parents")
                 .contentType(MediaType.APPLICATION_JSON)

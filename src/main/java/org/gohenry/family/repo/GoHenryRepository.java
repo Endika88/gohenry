@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface GoHenryRepository extends JpaRepository<Parent, Long> {
 
     public Parent findById(long id);
+
+    public Parent save(Parent parent);
 }

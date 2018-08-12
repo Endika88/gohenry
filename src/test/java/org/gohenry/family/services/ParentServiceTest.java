@@ -12,6 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.anyObject;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ParentServiceTest {
@@ -42,6 +43,17 @@ public class ParentServiceTest {
     public void getParentDetail_whenParentNotFound(){
         given(repository.findById(2)).willReturn(null);
         Parent parent = parentService.getParentDetails(1);
+
+    }
+
+    @Test
+    public void createParent(){
+        Parent parent = new Parent("go","henry", 32);
+        given(repository.save(parent)).willReturn(parent);
+        Parent parentReturn = parentService.createParent(parent);
+        assertEquals(parent.getName(),parentReturn.getName());
+        assertEquals(parent.getSurname(),parentReturn.getSurname());
+        assertEquals(parent.getAge(),parentReturn.getAge());
 
     }
 

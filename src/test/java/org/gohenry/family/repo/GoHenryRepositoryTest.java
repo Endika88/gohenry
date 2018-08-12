@@ -30,4 +30,13 @@ public class GoHenryRepositoryTest {
 
     }
 
+    @Test
+    public void createParent_returnParentDetails() throws Exception {
+        Parent parentToSave = new Parent("go","henry",32);
+        Parent saveParent = testEntityManager.persistAndFlush(parentToSave);
+        Parent parent = repository.save(parentToSave);
+        assertThat(parent.getName()).isEqualTo(saveParent.getName() );
+
+    }
+
 }
