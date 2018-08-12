@@ -91,4 +91,17 @@ public class IntegrationTest {
         Assert.assertEquals((int)response.getBody().getAge(), 35);
 
     }
+
+    @Test
+    public void updateParent_retun404NotFound(){
+        Map<String, String> param = new HashMap<String, String>();
+        param.put("id","3");
+        HttpEntity<Parent> requestEntity = new HttpEntity<Parent>(new Parent("goupdated","henryupdated",35), new HttpHeaders());
+
+        HttpEntity<Parent> response = restTemplate.exchange("/parents/{id}", HttpMethod.PUT, requestEntity, Parent.class, param);
+        
+        Assert.assertEquals(response.getBody(),null);
+
+
+    }
 }

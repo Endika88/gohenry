@@ -34,6 +34,17 @@ public class GoHenryController {
 
     }
 
+    @PutMapping("/parents/{id}")
+    public Parent update(@PathVariable String id, @RequestBody Parent parent){
+        int parentId = Integer.parseInt(id);
+        Parent dbParent = parentService.getParentDetails(parentId);
+        dbParent.setName(parent.getName());
+        dbParent.setAge(parent.getAge());
+        dbParent.setSurname(parent.getSurname());
+        return parentService.createParent(dbParent);
+
+    }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     private void parentNotFoundHandler (ParentNotFoundExcepction ex){}
