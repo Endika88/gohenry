@@ -18,6 +18,7 @@ public class ParentService {
     }
 
     public Parent getParentDetails(Integer id) {
-        return null;
+
+        return repository.findById(id);
     }
 }
