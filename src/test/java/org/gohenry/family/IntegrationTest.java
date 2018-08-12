@@ -28,4 +28,11 @@ public class IntegrationTest {
         Assert.assertEquals(response.getBody().getSurname(), "henry");
         Assert.assertEquals((int)response.getBody().getAge(), 32);
     }
+
+    @Test
+    public void getParent_retun404NotFoundError(){
+        ResponseEntity<Parent> response = restTemplate.getForEntity("/parent/123",Parent.class);
+        Assert.assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
+
+    }
 }
