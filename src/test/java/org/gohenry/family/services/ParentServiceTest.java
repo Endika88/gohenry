@@ -1,6 +1,7 @@
 package org.gohenry.family.services;
 
 import org.gohenry.family.entities.Parent;
+import org.gohenry.family.exceptions.ParentNotFoundExcepction;
 import org.gohenry.family.repo.GoHenryRepository;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,6 +35,13 @@ public class ParentServiceTest {
         Assert.assertEquals(parent.getName(), "go");
         Assert.assertEquals(parent.getSurname(), "henry");
         Assert.assertEquals((int)parent.getAge(), 32);
+
+    }
+
+    @Test (expected = ParentNotFoundExcepction.class)
+    public void getParentDetail_whenParentNotFound(){
+        given(repository.findById(2)).willReturn(null);
+        Parent parent = parentService.getParentDetails(1);
 
     }
 

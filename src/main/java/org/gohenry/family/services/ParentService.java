@@ -2,6 +2,7 @@ package org.gohenry.family.services;
 
 
 import org.gohenry.family.entities.Parent;
+import org.gohenry.family.exceptions.ParentNotFoundExcepction;
 import org.gohenry.family.repo.GoHenryRepository;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,11 @@ public class ParentService {
 
     public Parent getParentDetails(Integer id) {
 
-        return repository.findById(id);
+        Parent parent = repository.findById(id);
+
+        if(parent==null){
+            throw new ParentNotFoundExcepction();
+        }
+        return parent;
     }
 }
