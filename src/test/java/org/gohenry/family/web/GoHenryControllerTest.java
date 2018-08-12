@@ -37,4 +37,13 @@ public class GoHenryControllerTest {
 
 
     }
+
+    @Test
+    public void getParent_ShouldReturn404NotFoundError() throws Exception{
+
+        given(parentService.getParentDetails(Matchers.anyInt())).willReturn(null);
+        mockMvc.perform(MockMvcRequestBuilders.get("/parent/2"))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+
+    }
 }
