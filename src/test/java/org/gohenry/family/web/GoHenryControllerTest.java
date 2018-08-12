@@ -47,4 +47,14 @@ public class GoHenryControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
 
     }
+
+    @Test
+    public void createParent_ShouldReturnParent() throws Exception{
+
+        Parent parent = new Parent("go","controllertest",35);
+        given(parentService.createParent(parent)).willReturn(parent);
+        mockMvc.perform(MockMvcRequestBuilders.post("/parents",parent))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+    }
 }

@@ -27,4 +27,8 @@ public class ParentService {
         }
         return parent;
     }
+
+    public Parent createParent(Parent parent) {
+        return parent;
+    }
 }
