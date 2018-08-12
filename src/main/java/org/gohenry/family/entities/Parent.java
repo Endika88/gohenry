@@ -11,6 +11,13 @@ public class Parent {
     public Parent() {
     }
 
+
+    public Parent(String name, String surname, Integer age) {
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+    }
+
     public Long getId() {
         return id;
     }
