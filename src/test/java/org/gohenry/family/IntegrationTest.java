@@ -104,4 +104,19 @@ public class IntegrationTest {
 
 
     }
+
+    @Test
+    public void updateChildren_retunChildrenDetails(){
+
+        Map<String, String> param = new HashMap<String, String>();
+        param.put("id","1");
+        HttpEntity<Children> requestEntity = new HttpEntity<Children>(new Children("gochildupdated","henrychildupdated",18), new HttpHeaders());
+
+        HttpEntity<Children> response = restTemplate.exchange("/children/{id}", HttpMethod.PUT, requestEntity, Children.class, param);
+
+        Assert.assertEquals(response.getBody().getName(), "gochildupdated");
+        Assert.assertEquals(response.getBody().getSurname(), "henrychildupdated");
+        Assert.assertEquals((int)response.getBody().getAge(), 18);
+
+    }
 }
