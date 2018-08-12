@@ -1,6 +1,7 @@
 package org.gohenry.family.web;
 
 import org.gohenry.family.entities.Parent;
+import org.gohenry.family.exceptions.ParentNotFoundExcepction;
 import org.gohenry.family.services.ParentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,7 +42,7 @@ public class GoHenryControllerTest {
     @Test
     public void getParent_ShouldReturn404NotFoundError() throws Exception{
 
-        given(parentService.getParentDetails(Matchers.anyInt())).willReturn(null);
+        given(parentService.getParentDetails(Matchers.anyInt())).willThrow(new ParentNotFoundExcepction());
         mockMvc.perform(MockMvcRequestBuilders.get("/parent/2"))
                 .andExpect(MockMvcResultMatchers.status().isNotFound());
 
