@@ -1,5 +1,8 @@
 package org.gohenry.family.web;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import org.gohenry.family.entities.Parent;
 import org.gohenry.family.exceptions.ParentNotFoundExcepction;
 import org.gohenry.family.services.ParentService;
@@ -9,6 +12,7 @@ import org.mockito.Matchers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -51,10 +55,21 @@ public class GoHenryControllerTest {
     @Test
     public void createParent_ShouldReturnParent() throws Exception{
 
-        Parent parent = new Parent("go","controllertest",35);
+        Parent parent = new Parent();
+        parent.setName("go");
+        parent.setSurname("createParentControllerTest");
+        parent.setAge(33);
+        //... more
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson=ow.writeValueAsString(parent );
         given(parentService.createParent(parent)).willReturn(parent);
-        mockMvc.perform(MockMvcRequestBuilders.post("/parents",parent))
-                .andExpect(MockMvcResultMatchers.status().isCreated());
+        mockMvc.perform(MockMvcRequestBuilders.post("/parents")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(MockMvcResultMatchers.status().isCreated())
+                .andExpect(MockMvcResultMatchers.jsonPath("surname").value("createParentControllerTest"));
 
     }
 }
