@@ -1,11 +1,11 @@
 package org.gohenry.family.repo;
 
 import org.gohenry.family.entities.Parent;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
+@Repository
+public interface GoHenryRepository extends JpaRepository<Parent, Long> {
 
-public class GoHenryRepository {
-
-    public Parent findById(int i) {
-        return null;
-    }
+    public Parent findById(long id);
 }
