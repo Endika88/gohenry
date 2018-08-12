@@ -12,10 +12,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class GoHenryRepositoryTest {
+public class ParentRepositoryTest {
 
     @Autowired
-    private GoHenryRepository repository;
+    private ParentRepository repository;
 
     @Autowired
     public TestEntityManager testEntityManager;

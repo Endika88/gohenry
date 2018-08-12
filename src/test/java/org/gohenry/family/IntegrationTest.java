@@ -82,7 +82,7 @@ public class IntegrationTest {
     public void updateParent_retunParentDetails(){
 
         Map<String, String> param = new HashMap<String, String>();
-        param.put("id","1");
+        param.put("id","2");
         HttpEntity<Parent> requestEntity = new HttpEntity<Parent>(new Parent("goupdated","henryupdated",35), new HttpHeaders());
 
         HttpEntity<Parent> response = restTemplate.exchange("/parents/{id}", HttpMethod.PUT, requestEntity, Parent.class, param);
@@ -95,7 +95,7 @@ public class IntegrationTest {
     @Test
     public void updateParent_retun404NotFound(){
         Map<String, String> param = new HashMap<String, String>();
-        param.put("id","3");
+        param.put("id","123");
         HttpEntity<Parent> requestEntity = new HttpEntity<Parent>(new Parent("goupdated","henryupdated",35), new HttpHeaders());
 
         HttpEntity<Parent> response = restTemplate.exchange("/parents/{id}", HttpMethod.PUT, requestEntity, Parent.class, param);
@@ -109,7 +109,7 @@ public class IntegrationTest {
     public void updateChildren_retunChildrenDetails(){
 
         Map<String, String> param = new HashMap<String, String>();
-        param.put("id","1");
+        param.put("id","4");
         HttpEntity<Children> requestEntity = new HttpEntity<Children>(new Children("gochildupdated","henrychildupdated",18), new HttpHeaders());
 
         HttpEntity<Children> response = restTemplate.exchange("/children/{id}", HttpMethod.PUT, requestEntity, Children.class, param);

@@ -2,7 +2,7 @@ package org.gohenry.family.services;
 
 import org.gohenry.family.entities.Parent;
 import org.gohenry.family.exceptions.ParentNotFoundExcepction;
-import org.gohenry.family.repo.GoHenryRepository;
+import org.gohenry.family.repo.ParentRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,14 +12,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Matchers.anyObject;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ParentServiceTest {
 
 
     @Mock
-    private GoHenryRepository repository;
+    private ParentRepository repository;
     private ParentService parentService;
 
     @Before

@@ -1,8 +1,11 @@
 package org.gohenry.family.web;
 
 
+import org.gohenry.family.entities.Children;
 import org.gohenry.family.entities.Parent;
+import org.gohenry.family.exceptions.ChildrenNotFoundExcepction;
 import org.gohenry.family.exceptions.ParentNotFoundExcepction;
+import org.gohenry.family.services.ChildrenService;
 import org.gohenry.family.services.ParentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +18,9 @@ public class GoHenryController {
 
     @Autowired
     private ParentService parentService;
+
+    @Autowired
+    private ChildrenService childrenService;
 
     @GetMapping("parent/{id}")
     private Parent getParent(@PathVariable Integer id){
@@ -45,7 +51,22 @@ public class GoHenryController {
 
     }
 
+    @PutMapping("/children/{id}")
+    public Children updateChildren(@PathVariable String id, @RequestBody Children children){
+        int childrenId = Integer.parseInt(id);
+        Children dbChildren = childrenService.getChildrenDetails(childrenId);
+        dbChildren.setName(children.getName());
+        dbChildren.setAge(children.getAge());
+        dbChildren.setSurname(children.getSurname());
+        return childrenService.createChildren(dbChildren);
+
+    }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     private void parentNotFoundHandler (ParentNotFoundExcepction ex){}
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    private void childrenNotFoundHandler (ChildrenNotFoundExcepction ex){}
 }

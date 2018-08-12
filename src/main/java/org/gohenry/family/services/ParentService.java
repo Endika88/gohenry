@@ -3,7 +3,7 @@ package org.gohenry.family.services;
 
 import org.gohenry.family.entities.Parent;
 import org.gohenry.family.exceptions.ParentNotFoundExcepction;
-import org.gohenry.family.repo.GoHenryRepository;
+import org.gohenry.family.repo.ParentRepository;
 import org.springframework.stereotype.Service;
 
 
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 public class ParentService {
 
 
-    private GoHenryRepository repository;
+    private ParentRepository repository;
 
-    public ParentService(GoHenryRepository repository) {
+    public ParentService(ParentRepository repository) {
 
         this.repository = repository;
     }
@@ -33,4 +33,6 @@ public class ParentService {
         Parent savedParent = repository.save(parent);
         return savedParent;
     }
+
+
 }

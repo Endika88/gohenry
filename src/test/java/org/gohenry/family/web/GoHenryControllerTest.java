@@ -3,8 +3,10 @@ package org.gohenry.family.web;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.gohenry.family.entities.Children;
 import org.gohenry.family.entities.Parent;
 import org.gohenry.family.exceptions.ParentNotFoundExcepction;
+import org.gohenry.family.services.ChildrenService;
 import org.gohenry.family.services.ParentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +34,9 @@ public class GoHenryControllerTest {
     MockMvc mockMvc;
     @MockBean
     ParentService parentService;
+
+    @MockBean
+    ChildrenService childrenService;
 
     @Test
     public void getParent_ShouldReturnParent() throws Exception{
@@ -92,4 +97,6 @@ public class GoHenryControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isInternalServerError());
 
     }
+
+
 }
