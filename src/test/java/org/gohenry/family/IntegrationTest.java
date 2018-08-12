@@ -35,4 +35,13 @@ public class IntegrationTest {
         Assert.assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);
 
     }
+
+    @Test
+    public void createParent_retunParentDetails(){
+        ResponseEntity<Parent> response = restTemplate.postForEntity("/parents", new Parent("go","createTest",35),Parent.class);
+        Assert.assertEquals(response.getStatusCode(), HttpStatus.CREATED);
+        Assert.assertEquals(response.getBody().getName(), "go");
+        Assert.assertEquals(response.getBody().getSurname(), "createTest");
+        Assert.assertEquals((int)response.getBody().getAge(), 35);
+    }
 }
