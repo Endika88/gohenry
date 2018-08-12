@@ -44,4 +44,14 @@ public class IntegrationTest {
         Assert.assertEquals(response.getBody().getSurname(), "createTest");
         Assert.assertEquals((int)response.getBody().getAge(), 35);
     }
+
+    @Test
+    public void getParentAndChild_retunParentAndChildDetails(){
+        ResponseEntity<Parent> response = restTemplate.getForEntity("/parent/1",Parent.class);
+        Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+        Assert.assertEquals(response.getBody().getName(), "go");
+        Assert.assertEquals(response.getBody().getSurname(), "henry");
+        Assert.assertEquals((int)response.getBody().getAge(), 32);
+        Assert.assertEquals(response.getBody().getChildrens().get(0).getName(), "gochild");
+    }
 }
