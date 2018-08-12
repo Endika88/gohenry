@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Matchers.anyObject;
 
 @WebMvcTest(GoHenryController.class)
 @RunWith(SpringRunner.class)
@@ -70,6 +71,26 @@ public class GoHenryControllerTest {
                 .content(requestJson))
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.jsonPath("surname").value("createParentControllerTest"));
+
+    }
+
+    @Test
+    public void createParent_ShouldReturn500Error() throws Exception{
+
+        Parent parent = new Parent();
+        parent.setName("go");
+        parent.setSurname("createParentController500Test");
+        parent.setAge(33);
+        //... more
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson=ow.writeValueAsString(parent );
+        given(parentService.createParent(anyObject())).willReturn(null);
+        mockMvc.perform(MockMvcRequestBuilders.post("/parents")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(requestJson))
+                .andExpect(MockMvcResultMatchers.status().isInternalServerError());
 
     }
 }
