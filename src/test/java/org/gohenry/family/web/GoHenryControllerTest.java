@@ -55,26 +55,6 @@ public class GoHenryControllerTest {
 
     }
 
-    @Test
-    public void createParent_ShouldReturnParent2() throws Exception{
-
-        Parent parent = new Parent();
-        parent.setName("go");
-        parent.setSurname("createParentControllerTest");
-        parent.setAge(33);
-        //... more
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-        String requestJson=ow.writeValueAsString(parent );
-        given(parentService.createParent(parent)).willReturn(parent);
-        mockMvc.perform(MockMvcRequestBuilders.post("/parents")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(requestJson))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("surname").value("createParentControllerTest"));
-
-    }
 
     @Test
     public void createParent_ShouldReturnParent() throws Exception{

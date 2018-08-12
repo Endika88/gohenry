@@ -1,14 +1,21 @@
 package org.gohenry.family.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.io.Serializable;
 
 
 @Entity
+@Getter
+@Setter
 public class Children {
     @Id
     @GeneratedValue
@@ -17,6 +24,7 @@ public class Children {
     private String surname;
     private Integer age;
     @ManyToOne
+    @JsonBackReference
     private Parent parent;
 
     public Children() {
@@ -25,30 +33,6 @@ public class Children {
     public Children(String name, String surname, Integer age) {
         this.name = name;
         this.surname = surname;
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
         this.age = age;
     }
 }

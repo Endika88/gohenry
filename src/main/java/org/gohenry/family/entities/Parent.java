@@ -1,12 +1,26 @@
 package org.gohenry.family.entities;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
+/**
+ * Created by c0234499 on 09/08/2018.
+ */
 
+
+@Getter
+@Setter
 @Entity
-public class Parent {
+public class Parent  {
     @Id
     @GeneratedValue
     private Long id;
@@ -14,55 +28,29 @@ public class Parent {
     private String surname;
     private Integer age;
     @OneToMany(mappedBy="parent", cascade = CascadeType.PERSIST)
+    @JsonManagedReference
     private List<Children> childrens;
 
-    public Parent() {
+    public Parent(){
+
+        childrens = new ArrayList<Children>();
     }
-
-
     public Parent(String name, String surname, Integer age) {
         this.name = name;
         this.surname = surname;
         this.age = age;
+        childrens = new ArrayList<Children>();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public Parent(String name, String surname, Integer age, List<Children> childrens) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
         this.age = age;
+        this.childrens = childrens;
     }
 
     public List<Children> getChildrens() {
         return childrens;
     }
 
-    public void setChildrens(List<Children> childrens) {
-        this.childrens = childrens;
-    }
 }
